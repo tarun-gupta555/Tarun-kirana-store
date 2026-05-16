@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tarun Kirana Store</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-top">
+
+      <!-- Logo -->
+      <div class="logo-area" onclick="scrollToTop()">
+        <div class="logo-img" id="logoContainer">
+          <img id="logoImgEl" src="" alt="Logo" />
+          <span id="logoFallback">TK</span>
+        </div>
+        <div class="logo-text">
+          <h1>Tarun Kirana Store</h1>
+          <span>🌿 Fresh &amp; Quality Guaranteed</span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search products... (e.g. Atta, Dal, Rice)" autocomplete="off" />
+        <span class="search-icon">🔍</span>
+        <div class="search-results-dropdown" id="searchDropdown"></div>
+      </div>
+
+      <!-- Cart Button -->
+      <button class="cart-btn" onclick="openCart()">
+        🛒 Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+
+    </div>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav" id="categoryNav"></nav>
+  </header>
+
+  <!-- ===== HERO BANNER ===== -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>ताज़ा किराना, <br/>घर की दहलीज़ पर 🌾</h2>
+      <p>Best quality groceries at the lowest prices. Order via WhatsApp and get fresh delivery!</p>
+      <div class="hero-badge">
+        <span>⚡</span> Same Day Delivery Available
+      </div>
+    </div>
+    <div class="hero-emoji">🛍️🌿🥛</div>
+  </section>
+
+  <!-- ===== PRODUCTS SECTION ===== -->
+  <main id="mainContent"></main>
+
+  <!-- No Results Message -->
+  <div class="no-results" id="noResults">
+    <div style="font-size:3rem">🔎</div>
+    <p class="no-results-title">Koi product nahi mila</p>
+    <p>Koi doosra naam try karein</p>
+  </div>
+
+  <!-- ===== CART SIDEBAR ===== -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>🛒 Aapka Cart</h2>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total Amount:</span>
+        <strong>₹<span id="cartTotal">0</span></strong>
+      </div>
+
+      <!-- Customer Info Form -->
+      <div class="customer-form">
+        <input type="text"  id="custName"    placeholder="Aapka Naam *" />
+        <input type="tel"   id="custPhone"   placeholder="Mobile Number *" />
+        <input type="text"  id="custAddress" placeholder="Delivery Address" />
+        <textarea           id="custNote"    placeholder="Koi special note (optional)"></textarea>
+      </div>
+
+      <!-- WhatsApp Order Button -->
+      <button class="whatsapp-order-btn" onclick="sendWhatsAppOrder()">
+        <svg viewBox="0 0 24 24" fill="white" width="22" height="22">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.99-1.418A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.073-1.117l-.292-.174-3.118.886.878-3.042-.19-.313A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
+        </svg>
+        WhatsApp pe Order Karein
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+  <a class="float-wa" id="floatWA" title="Chat on WhatsApp" target="_blank">
+    <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.99-1.418A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.073-1.117l-.292-.174-3.118.886.878-3.042-.19-.313A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
+    </svg>
+  </a>
+
+  <!-- ===== SCROLL TO TOP BUTTON ===== -->
+  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <h4>🌿 Tarun Kirana Store</h4>
+    <p>Quality Groceries | Fresh Products | Best Prices<br/>
+    📍 <div Front="" Budh="" Bazar="" Market=""></div> &nbsp;|&nbsp; 📞 <span id="footerPhone"></span></p>
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a id="footerWA" href="#" target="_blank">WhatsApp</a>
+    </div>
+    <p class="copyright">© 2026 Tarun Kirana Store. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== JAVASCRIPT FILE ===== -->
+  <script src="script.js"></script>
+
+</body>
+</html>
